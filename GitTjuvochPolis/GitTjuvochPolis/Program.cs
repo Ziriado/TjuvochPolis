@@ -8,6 +8,8 @@
             Console.WriteLine("Hej Hopp");
 
             Console.WriteLine("Yaho!");
+
+            Console.WriteLine("Beep beep");
         }
     }
 }

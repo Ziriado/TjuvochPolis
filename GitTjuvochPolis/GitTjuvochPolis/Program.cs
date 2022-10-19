@@ -4,12 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hejsan världen!");
-            Console.WriteLine("Hej Hopp");
+            City city = new City();
+            city.DrawCity();
 
-            Console.WriteLine("Yaho!");
-
-            Console.WriteLine("Beep beep");
         }
     }
 }

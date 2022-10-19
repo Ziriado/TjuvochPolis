@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GitTjuvochPolis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,24 @@ namespace GitTjuvochPolis
     internal class City
     {
         public List<Person> people = new List<Person>();
-        public void Addperson(Person person)
+        public void AddPerson(Person person)
         {
             people.Add(person);
         }
+        public void DrawCity()
+        {
+            char [,] theCity = new char[25, 100];
+
+            for (int row = 0; row <theCity.GetLength(0); row++)
+            {
+                for(int col = 0; col < theCity.GetLength(1); col++)
+                {
+                    Console.Write(theCity[row, col] == 0 ? ' ' : theCity[row,col]);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
     }
 }

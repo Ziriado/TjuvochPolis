@@ -32,6 +32,7 @@ namespace GitTjuvochPolis
 
                 Console.WriteLine();
             }
+            Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
     }
 }

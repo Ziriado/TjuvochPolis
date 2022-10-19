@@ -71,7 +71,23 @@ namespace GitTjuvochPolis
             //SetX += moveX;
             //SetY += moveY;
             SetX = ((SetX + moveX  % 100) + 100) % 100;
-            SetY = ((SetY + moveY % 25) + 25) % 25;
+            SetY = ((SetY + moveY % 25) + 25) % 25;           
+            //if (SetY >= 25)
+            //{
+            //    SetY = 1;
+            //}
+            //if (SetY <= 0)
+            //{
+            //    SetY = 24;
+            //}
+            //if (SetX >= 100)
+            //{
+            //    SetX = 1;
+            //}
+            //if (SetX <= 0)
+            //{
+            //    SetX = 99;
+            //}
         }
 
         internal void Meeting()

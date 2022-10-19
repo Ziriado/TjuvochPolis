@@ -21,6 +21,8 @@
                 city.AddPerson(new Police(rnd.Next(0, 100), rnd.Next(0, 25)));
             }
 
+            city.DrawCity();
+
         }
     }
 }

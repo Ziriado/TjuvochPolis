@@ -29,7 +29,7 @@ namespace GitTjuvochPolis
             int moveX = 0;
             int moveY = 0;
 
-            switch (Direction)//N S W E NW NE SW SE
+            switch (Direction)//N S W E NW NE SW SE.
             {
                 case 1: //Norrut
                     moveX = 0;

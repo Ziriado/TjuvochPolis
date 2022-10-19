@@ -21,7 +21,7 @@ namespace GitTjuvochPolis
             Random rnd = new Random();
             SetX = setX;
             SetY = setY;
-            Direction = rnd.Next(1, 10);
+            Direction = rnd.Next(0, 10);
         }
 
         public void TakeStep()
@@ -68,8 +68,10 @@ namespace GitTjuvochPolis
                     moveY = 0;
                     break;
             }
-            SetX += moveX;
-            SetY += moveY;
+            //SetX += moveX;
+            //SetY += moveY;
+            SetX = ((SetX + moveX  % 100) + 100) % 100;
+            SetY = ((SetY + moveY % 25) + 25) % 25;
         }
     }
     class Citizen : Person

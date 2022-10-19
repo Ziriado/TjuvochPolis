@@ -24,21 +24,21 @@ namespace GitTjuvochPolis
     }
     class Citizen : Person
     {
-        public Citizen(int SetX, int SetY, int Direction) : base(SetX, SetY)
+        public Citizen(int SetX, int SetY) : base(SetX, SetY)
         {
             Symbol = 'M';
         }
     }
     class Thief : Person
     {
-        public Thief(int SetX, int SetY, int Direction) : base(SetX, SetY)
+        public Thief(int SetX, int SetY) : base(SetX, SetY)
         {
             Symbol = 'T';
         }
     }
     class Police : Person
     {
-        public Police(int SetX, int SetY, int Direction) : base(SetX, SetY)
+        public Police(int SetX, int SetY) : base(SetX, SetY)
         {
             Symbol = 'P';
         }

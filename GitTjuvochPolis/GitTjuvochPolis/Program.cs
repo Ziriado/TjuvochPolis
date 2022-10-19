@@ -20,8 +20,15 @@
             {
                 city.AddPerson(new Police(rnd.Next(0, 100), rnd.Next(0, 25)));
             }
-
-            city.DrawCity();
+            while (true)
+            {
+                //foreach (Person person in city.people)
+                //{
+                //    person.TakeStep();
+                //}
+                city.DrawCity();
+                Thread.Sleep(100);
+            }
 
         }
     }

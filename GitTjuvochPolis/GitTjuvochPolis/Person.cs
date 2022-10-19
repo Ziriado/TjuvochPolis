@@ -12,14 +12,64 @@ namespace GitTjuvochPolis
 
         public int SetY { get; set; }
 
-        //public int Direction { get; set; }
+        public int Direction { get; set; }
 
         public virtual char Symbol { get; set; }
 
         public Person(int setX, int setY)
         {
-            this.SetX = setX;
+            Random rnd = new Random();
+            SetX = setX;
             SetY = setY;
+            Direction = rnd.Next(1, 10);
+        }
+
+        public void TakeStep()
+        {
+            int moveX = 0;
+            int moveY = 0;
+
+            switch (Direction)//N S W E NW NE SW SE
+            {
+                case 1: //Norrut
+                    moveX = 0;
+                    moveY = -1;
+                    break;
+                case 2: //SÖder
+                    moveX = 0;
+                    moveY = 1;
+                    break;
+                case 3: //west
+                    moveX = -1;
+                    moveY = 0;
+                    break;
+                case 4: //east
+                    moveX = 1;
+                    moveY = 0;
+                    break;
+                case 5: //northwest
+                    moveX = -1;
+                    moveY = -1;
+                    break;
+                case 6: //northeast
+                    moveX = +1;
+                    moveY = -1;
+                    break;
+                case 7: //southwest
+                    moveX = -1;
+                    moveY = +1;
+                    break;
+                case 8: //southeast
+                    moveX = +1;
+                    moveY = +1;
+                    break;
+                case 9: // standstill
+                    moveX = 0;
+                    moveY = 0;
+                    break;
+            }
+            SetX += moveX;
+            SetY += moveY;
         }
     }
     class Citizen : Person

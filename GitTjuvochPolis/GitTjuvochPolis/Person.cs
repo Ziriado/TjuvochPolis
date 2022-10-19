@@ -73,7 +73,13 @@ namespace GitTjuvochPolis
             SetX = ((SetX + moveX  % 100) + 100) % 100;
             SetY = ((SetY + moveY % 25) + 25) % 25;
         }
+
+        internal void Meeting()
+        {
+        }
     }
+
+
     class Citizen : Person
     {
         public Citizen(int SetX, int SetY) : base(SetX, SetY)

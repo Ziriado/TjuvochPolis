@@ -9,7 +9,7 @@ namespace GitTjuvochPolis
 {
     internal class City
     {
-        public List<Person> people = new List<Person>();
+        public List<Person> people = new List<Person>();//
         public void AddPerson(Person person)
         {
             people.Add(person);
@@ -35,6 +35,7 @@ namespace GitTjuvochPolis
 
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
         public void DrawPrison()
         {

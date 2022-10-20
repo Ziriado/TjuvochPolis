@@ -10,7 +10,7 @@ namespace GitTjuvochPolis
 {
     internal class Person
     {
-        public int SetX { get; set; }
+       public int SetX { get; set; }
 
         public int SetY { get; set; }
 
@@ -80,58 +80,10 @@ namespace GitTjuvochPolis
             }
             //SetX += moveX;
             //SetY += moveY;
-            SetX = ((SetX + moveX % 100) + 100) % 100;
+            SetX = ((SetX + moveX  % 100) + 100) % 100;
             SetY = ((SetY + moveY % 25) + 25) % 25;
-            //if (SetY >= 25)
-            //{
-            //    SetY = 1;
-            //}
-            //if (SetY <= 0)
-            //{
-            //    SetY = 24;
-            //}
-            //if (SetX >= 100)
-            //{
-            //    SetX = 1;
-            //}
-            //if (SetX <= 0)
-            //{
-            //    SetX = 99;
-            //}
-        }
-
-        public void CheckCollision(Person person, Person personTwo,Random rnd)
-        {
-            if (person is Thief && personTwo is Citizen)
-            {
-                if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
-                {
-                    int index =rnd.Next(Inventory.Count);
-                    person.Inventory.Add(Inventory[index]);
-                    Console.WriteLine("Tjuv rånar medborgare!");
-                   for(int i = 0; i < Inventory.Count; i++)
-                    {
-                        Console.WriteLine(Inventory[index]);
-                    }
-                    Thread.Sleep(1500);
-                }
-            }
-            else if (person is Police && personTwo is Thief)
-            {
-                if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
-                {
-                   
-                    Inventory.AddRange(person.Inventory);
-                    person.Inventory.Clear();
-                    
-                    
-                    Thread.Sleep(1500);
-                }
-            }
         }
     }
-
-
     class Citizen : Person
     {
         public Citizen(int SetX, int SetY) : base(SetX, SetY)
@@ -141,9 +93,9 @@ namespace GitTjuvochPolis
     }
     class Thief : Person
     {
-        public bool Arrested { get; set; }
         public Thief(int SetX, int SetY) : base(SetX, SetY)
         {
+            IsArrested = false;
             Symbol = 'T';
             
 

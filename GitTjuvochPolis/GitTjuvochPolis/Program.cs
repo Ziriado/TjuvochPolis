@@ -5,30 +5,47 @@
         static void Main(string[] args)
         {
             City city = new City();
-            
+
+            Person person = new Person(0, 0);
+
             Random rnd = new Random();
 
-            for (int i = 0; i < 1; i++)
+
+            for (int i = 0; i < 10; i++)
             {
-                city.AddPerson(new Citizen(rnd.Next(0, 100 ), rnd.Next(0, 25)));
+                city.AddPerson(new Citizen(rnd.Next(0, 100), rnd.Next(0, 25)));
             }
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 city.AddPerson(new Thief(rnd.Next(0, 100), rnd.Next(0, 25)));
             }
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 city.AddPerson(new Police(rnd.Next(0, 100), rnd.Next(0, 25)));
             }
             while (true)
             {
-                foreach (Person person in city.people)
+                foreach (Person p in city.people)
                 {
-                    person.TakeStep();
+                    p.TakeStep();
+                    foreach (Person otherP in city.people)
+                    {
+                        if (p != otherP)
+                        {
+                            person.CheckCollision(otherP, p,rnd);
+                        }
+                    }
+                    //method for checking collision
+                    //if collision happens check which subclasses
+                    //create bool to check if thief is captured
+
                 }
-                city.DrawCity();
-                Thread.Sleep(100);
                 Console.Clear();
+                city.DrawCity();
+                city.DrawPrison();
+                //person.CheckCollision(person);
+                Thread.Sleep(600);
+                
             }
         }
     }

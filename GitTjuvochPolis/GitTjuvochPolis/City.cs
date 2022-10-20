@@ -14,13 +14,16 @@ namespace GitTjuvochPolis
         {
             people.Add(person);
         }
+
+   
         public void DrawCity()
         {
             char [,] theCity = new char[25, 100];
-
+        
             foreach (Person person in people)
             {
                 theCity[person.SetY, person.SetX] = person.Symbol;
+                
             }
 
             for (int row = 0; row <theCity.GetLength(0); row++)
@@ -33,5 +36,19 @@ namespace GitTjuvochPolis
                 Console.WriteLine();
             }
         }
+        public void DrawPrison()
+        {
+            char[,] thePrison = new char[5, 10];
+            for (int row = 0; row < thePrison.GetLength(0); row++)
+            {
+                for (int col = 0; col < thePrison.GetLength(1); col++)
+                {
+                    Console.Write(thePrison[row, col] == 0 ? 'M' : thePrison[row, col]);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
     }
 }

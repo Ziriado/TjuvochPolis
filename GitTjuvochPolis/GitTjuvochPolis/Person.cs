@@ -114,7 +114,7 @@ namespace GitTjuvochPolis
                         person.isArrested = true;
                     }
                     //((Thief)person).isArrested = true;
-                    Thread.Sleep(100);
+                    Thread.Sleep(2000);
 
                 }
             }

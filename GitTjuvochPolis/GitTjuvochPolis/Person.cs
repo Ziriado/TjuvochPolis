@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,8 +10,7 @@ namespace GitTjuvochPolis
 {
     internal class Person
     {
-        public bool isArrested = false;
-        public int SetX { get; set; }
+       public int SetX { get; set; }
 
         public int SetY { get; set; }
 
@@ -18,12 +18,20 @@ namespace GitTjuvochPolis
 
         public virtual char Symbol { get; set; }
 
+        public List<string>Inventory { get; set; } =new List<string>();
+
+        public Random rnd { get; set; }
+
         public Person(int setX, int setY)
         {
             Random rnd = new Random();
             SetX = setX;
             SetY = setY;
             Direction = rnd.Next(0, 10);
+            Inventory.Add("Keys");
+            Inventory.Add("Wallet");
+            Inventory.Add("Watch");
+            Inventory.Add("Phone");
         }
 
         public void TakeStep()
@@ -72,73 +80,10 @@ namespace GitTjuvochPolis
             }
             //SetX += moveX;
             //SetY += moveY;
-            SetX = ((SetX + moveX % 100) + 100) % 100;
-            SetY = ((SetY + moveY % 25) + 25) % 25;           
-            //if (SetY >= 25)
-            //{
-            //    SetY = 1;
-            //}
-            //if (SetY <= 0)
-            //{
-            //    SetY = 24;
-            //}
-            //if (SetX >= 100)
-            //{
-            //    SetX = 1;
-            //}
-            //if (SetX <= 0)
-            //{
-            //    SetX = 99;
-            //}
-        }
-
-        public void CheckCollision(Person person, Person personTwo)
-        {
-            if (person is Thief && personTwo is Citizen || person is Citizen && personTwo is Thief)
-            {
-                if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
-                {
-                    Console.SetCursorPosition(0, 26);
-                    Console.WriteLine("Tjuv rånar medborgare!");
-                    Thread.Sleep(100);
-                }
-            }
-            if (person is Police && personTwo is Thief || person is Thief && personTwo is Police)
-            {
-                if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
-                {
-                    Console.SetCursorPosition(0, 26);
-                    Console.WriteLine("Polis fångar tjuv!");
-                    if (person is Thief)
-                    {
-                        person.isArrested = true;
-                    }
-                    //((Thief)person).isArrested = true;
-                    Thread.Sleep(100);
-
-                }
-            }
-        }
-
-        public void SendToPrison(List<Person> p)
-        {
-            Prison prison = new Prison();
-            for (int i = 0; i < p.Count; i++)
-            {
-                if (p[i] is Thief)
-                {
-                    if (p[i].isArrested == true)
-                    {
-                        p.Remove(p[i]);
-                        //prison.prisoners.Add(p[i]);
-                        prison.AddPerson(p[i]);
-                    }
-                }
-            }
+            SetX = ((SetX + moveX  % 100) + 100) % 100;
+            SetY = ((SetY + moveY % 25) + 25) % 25;
         }
     }
-
-
     class Citizen : Person
     {
         public Citizen(int SetX, int SetY) : base(SetX, SetY)
@@ -148,11 +93,21 @@ namespace GitTjuvochPolis
     }
     class Thief : Person
     {
-        public bool IsArrested { get; set; }
         public Thief(int SetX, int SetY) : base(SetX, SetY)
         {
             IsArrested = false;
             Symbol = 'T';
+            
+
+
+        }
+        public void HandleCollision(Person person)
+        {
+            if (person is Thief)
+            {
+                Console.WriteLine("Tjuv rånar medborgare!");
+                Thread.Sleep(1500);
+            }
         }
     }
     class Police : Person
@@ -160,6 +115,18 @@ namespace GitTjuvochPolis
         public Police(int SetX, int SetY) : base(SetX, SetY)
         {
             Symbol = 'P';
+        }
+        public void HandleCollision(Person person, Person personTwo)
+        {
+            
+            if (person is Police && personTwo is Thief)
+            {
+                
+                
+                Console.WriteLine("Polis fångar tjuv!");
+                
+                Thread.Sleep(1500);
+            }
         }
     }
 }

@@ -9,7 +9,8 @@ namespace GitTjuvochPolis
 {
     internal class Person
     {
-       public int SetX { get; set; }
+        public bool isArrested = false;
+        public int SetX { get; set; }
 
         public int SetY { get; set; }
 
@@ -93,20 +94,45 @@ namespace GitTjuvochPolis
 
         public void CheckCollision(Person person, Person personTwo)
         {
-            if (person is Thief && personTwo is Citizen)
+            if (person is Thief && personTwo is Citizen || person is Citizen && personTwo is Thief)
             {
                 if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
                 {
+                    Console.SetCursorPosition(0, 26);
                     Console.WriteLine("Tjuv rånar medborgare!");
-                    Thread.Sleep(1500);
+                    Thread.Sleep(100);
                 }
             }
-            else if (person is Police && personTwo is Thief)
+            if (person is Police && personTwo is Thief || person is Thief && personTwo is Police)
             {
                 if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
                 {
+                    Console.SetCursorPosition(0, 26);
                     Console.WriteLine("Polis fångar tjuv!");
-                    Thread.Sleep(1500);
+                    if (person is Thief)
+                    {
+                        person.isArrested = true;
+                    }
+                    //((Thief)person).isArrested = true;
+                    Thread.Sleep(100);
+
+                }
+            }
+        }
+
+        public void SendToPrison(List<Person> p)
+        {
+            Prison prison = new Prison();
+            for (int i = 0; i < p.Count; i++)
+            {
+                if (p[i] is Thief)
+                {
+                    if (p[i].isArrested == true)
+                    {
+                        p.Remove(p[i]);
+                        //prison.prisoners.Add(p[i]);
+                        prison.AddPerson(p[i]);
+                    }
                 }
             }
         }
@@ -122,17 +148,11 @@ namespace GitTjuvochPolis
     }
     class Thief : Person
     {
+        public bool IsArrested { get; set; }
         public Thief(int SetX, int SetY) : base(SetX, SetY)
         {
+            IsArrested = false;
             Symbol = 'T';
-        }
-        public void HandleCollision(Person person)
-        {
-            if (person is Thief)
-            {
-                Console.WriteLine("Tjuv rånar medborgare!");
-                Thread.Sleep(1500);
-            }
         }
     }
     class Police : Person
@@ -140,14 +160,6 @@ namespace GitTjuvochPolis
         public Police(int SetX, int SetY) : base(SetX, SetY)
         {
             Symbol = 'P';
-        }
-        public void HandleCollision(Person person, Person personTwo)
-        {
-            if (person is Police && personTwo is Thief)
-            {
-                Console.WriteLine("Polis fångar tjuv!");
-                Thread.Sleep(1500);
-            }
         }
     }
 }

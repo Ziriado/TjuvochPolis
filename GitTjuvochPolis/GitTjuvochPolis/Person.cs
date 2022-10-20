@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,7 +71,7 @@ namespace GitTjuvochPolis
             }
             //SetX += moveX;
             //SetY += moveY;
-            SetX = ((SetX + moveX  % 100) + 100) % 100;
+            SetX = ((SetX + moveX % 100) + 100) % 100;
             SetY = ((SetY + moveY % 25) + 25) % 25;           
             //if (SetY >= 25)
             //{
@@ -90,8 +91,24 @@ namespace GitTjuvochPolis
             //}
         }
 
-        internal void Meeting()
+        public void CheckCollision(Person person, Person personTwo)
         {
+            if (person is Thief && personTwo is Citizen)
+            {
+                if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
+                {
+                    Console.WriteLine("Tjuv rånar medborgare!");
+                    Thread.Sleep(1500);
+                }
+            }
+            else if (person is Police && personTwo is Thief)
+            {
+                if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
+                {
+                    Console.WriteLine("Polis fångar tjuv!");
+                    Thread.Sleep(1500);
+                }
+            }
         }
     }
 
@@ -109,12 +126,28 @@ namespace GitTjuvochPolis
         {
             Symbol = 'T';
         }
+        public void HandleCollision(Person person)
+        {
+            if (person is Thief)
+            {
+                Console.WriteLine("Tjuv rånar medborgare!");
+                Thread.Sleep(1500);
+            }
+        }
     }
     class Police : Person
     {
         public Police(int SetX, int SetY) : base(SetX, SetY)
         {
             Symbol = 'P';
+        }
+        public void HandleCollision(Person person, Person personTwo)
+        {
+            if (person is Police && personTwo is Thief)
+            {
+                Console.WriteLine("Polis fångar tjuv!");
+                Thread.Sleep(1500);
+            }
         }
     }
 }

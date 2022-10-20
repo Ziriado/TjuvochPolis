@@ -41,6 +41,7 @@
                     //method for checking collision
                     //if collision happens check which subclasses
                     //create bool to check if thief is captured
+                    //Code alot yes
                 }
                 Console.CursorVisible = false;
                 prison.DrawPrison();

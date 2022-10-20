@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GitTjuvochPolis
 {
-    internal class Citizen
+    internal class Citizen : Person
     {
+        public Citizen(int SetX, int SetY) : base(SetX, SetY)
+        {
+            Symbol = 'M';
+        }
     }
 }

@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace GitTjuvochPolis
 {
-    internal class Thief
+    internal class Thief:Person
     {
+        public bool IsArrested { get; set; }
+        public Thief(int SetX, int SetY) : base(SetX, SetY)
+        {
+            IsArrested = false;
+            Symbol = 'T';
+        }
     }
 }

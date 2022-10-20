@@ -137,29 +137,4 @@ namespace GitTjuvochPolis
             }
         }
     }
-
-
-    class Citizen : Person
-    {
-        public Citizen(int SetX, int SetY) : base(SetX, SetY)
-        {
-            Symbol = 'M';
-        }
-    }
-    class Thief : Person
-    {
-        public bool IsArrested { get; set; }
-        public Thief(int SetX, int SetY) : base(SetX, SetY)
-        {
-            IsArrested = false;
-            Symbol = 'T';
-        }
-    }
-    class Police : Person
-    {
-        public Police(int SetX, int SetY) : base(SetX, SetY)
-        {
-            Symbol = 'P';
-        }
-    }
 }

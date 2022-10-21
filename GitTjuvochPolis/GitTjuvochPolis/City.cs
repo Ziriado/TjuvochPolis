@@ -9,11 +9,16 @@ namespace GitTjuvochPolis
 {
     internal class City
     {
+        Citizen citizen = new Citizen(0, 0);
         public List<Person> people = new List<Person>();
-        public void AddPerson(Person person)
+        Prison prison = new Prison();
+        Random rnd = new Random();
+        Person person = new Person(0, 0);
+        public void AddPerson(Person person, List<Inventory> inventory)
         {
             people.Add(person);
             if (person.isArrested == true){
+                prison.AddPerson(person);
                 people.Remove(person);
             }
         }
@@ -45,10 +50,10 @@ namespace GitTjuvochPolis
             {
                 Console.SetCursorPosition(101, count);
 
-                Console.Write($"{people[i].GetType().Name}:\t{people[i].SetX}, {people[i].SetY}\t");
+                Console.Write($"{people[i].GetType().Name}:\t{people[i].SetX}, {people[i].SetY}, {people[i].Inventory.Count}\t");
                 //if (people[i] is Citizen)
                 //{
-                //    var a = ((Citizen)people[i]).Belongings;
+                //    var a = ((Citizen)people[i]).Inventory;
                 //    foreach (var b in a.ToList())
                 //    {
                 //        Console.Write($"{b.thingName} ");
@@ -56,7 +61,7 @@ namespace GitTjuvochPolis
                 //}
                 //else if (people[i] is Thief)
                 //{
-                //    var a = ((Thief)people[i]).StolenGoods;
+                //    var a = ((Thief)people[i]).Inventory;
                 //    foreach (var b in a.ToList())
                 //    {
                 //        Console.Write($"{b.thingName} ");
@@ -64,7 +69,7 @@ namespace GitTjuvochPolis
                 //}
                 //else if (people[i] is Police)
                 //{
-                //    var a = ((Police)people[i]).Confiscated;
+                //    var a = ((Police)people[i]).Inventory;
                 //    foreach (var b in a.ToList())
                 //    {
                 //        Console.Write($"{b.thingName} ");

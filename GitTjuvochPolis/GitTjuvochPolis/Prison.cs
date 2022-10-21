@@ -8,7 +8,7 @@ namespace GitTjuvochPolis
 {
     internal class Prison
     {
-        public List<Person> prisoners = new List<Person>();//
+        public List<Person> prisoners = new List<Person>();
         public void AddPerson(Person thiefs)
         {
             prisoners.Add(thiefs);
@@ -29,7 +29,6 @@ namespace GitTjuvochPolis
                 {
                     Console.Write(thePrison[row, col] == 0 ? ' ' : thePrison[row, col]);
                 }
-
                 Console.WriteLine();
             }
             Console.WriteLine();

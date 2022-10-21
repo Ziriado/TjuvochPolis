@@ -11,23 +11,25 @@
             Random rnd = new Random();
 
 
-            for (int i = 0; i < 37; i++)
+            for (int i = 0; i < 20; i++)
             {
-                city.AddPerson(new Citizen(rnd.Next(0, 100), rnd.Next(0, 25)));
+                city.AddPerson(new Citizen(rnd.Next(0, 100), rnd.Next(0, 25)), person.Inventory);
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 8; i++)
             {
-                city.AddPerson(new Thief(rnd.Next(0, 100), rnd.Next(0, 25)));
+                city.AddPerson(new Thief(rnd.Next(0, 100), rnd.Next(0, 25)), person.Inventory);
             }
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 20; i++)
             {
-                city.AddPerson(new Police(rnd.Next(0, 100), rnd.Next(0, 25)));
+                city.AddPerson(new Police(rnd.Next(0, 100), rnd.Next(0, 25)), person.Inventory);
             }
             
             while (true)
             {
                 Console.Clear();
                 city.DrawCity();
+                prison.DrawPrison();
+                Thread.Sleep(200);
                 for (int i = 0; i < city.people.Count; i++)
                 {
                     city.people[i].TakeStep();
@@ -36,6 +38,7 @@
                         if (i != j)
                         {
                             person.CheckCollision(city.people[i], city.people[j]);
+                            //person.InventoryTrade(city.people[i], city.people[j]);
                             person.SendToPrison(city.people);
                         }
                     }
@@ -45,8 +48,8 @@
                     //Code alot yes
                 }
                 Console.CursorVisible = false;
-                prison.DrawPrison();
-                Thread.Sleep(200);
+                //prison.DrawPrison();
+               //Thread.Sleep(500);
                 
             }
 

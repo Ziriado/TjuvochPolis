@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Net.NetworkInformation;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,12 +23,24 @@ namespace GitTjuvochPolis
 
         public virtual char Symbol { get; set; }
 
+        public List<Inventory> Inventory { get; set; }
+
+        public virtual List<Inventory> GetThings()
+        {
+            {
+                List<Inventory> inventory = new List<Inventory>();
+
+                return inventory;
+            }
+        }
+
         public Person(int setX, int setY)
         {
             Random rnd = new Random();
             SetX = setX;
             SetY = setY;
             Direction = rnd.Next(0, 10);
+            Inventory = GetThings();
         }
 
         public void TakeStep()
@@ -96,6 +111,10 @@ namespace GitTjuvochPolis
 
         public void CheckCollision(Person person, Person personTwo)
         {
+            Citizen citizen = new Citizen(0, 0);
+            Random rnd = new Random();
+            int randomItem = rnd.Next(0, Inventory.Count);
+            
             if (person is Thief && personTwo is Citizen || person is Citizen && personTwo is Thief)
             {
                 if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
@@ -105,8 +124,18 @@ namespace GitTjuvochPolis
                         isThief = true;
                     }
                     Console.SetCursorPosition(0, 26);
-                    Console.WriteLine("Tjuv rånar medborgare!");
+                    Console.WriteLine("Tjuv rånar medborgare!");                    
                     Thread.Sleep(800);
+                    if (person is Citizen && Inventory.Count > 0)
+                    {       
+                        personTwo.Inventory.Add(person.Inventory[randomItem]);
+                        person.Inventory.RemoveAt(randomItem);
+                    }
+                    else if (personTwo is Citizen && Inventory.Count > 0)
+                    {
+                        person.Inventory.Add(personTwo.Inventory[randomItem]);
+                        personTwo.Inventory.RemoveAt(randomItem);
+                    }
                 }
             }
             if (person is Police && personTwo is Thief || person is Thief && personTwo is Police)
@@ -120,7 +149,7 @@ namespace GitTjuvochPolis
                     {
                         Console.WriteLine("Polis fångar tjuv!");
                         person.isArrested = true;
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1000);
                     }
                     //((Thief)person).isArrested = true;
                     if(person is Thief &&isThief==false ||personTwo is Thief && isThief==false)
@@ -128,11 +157,20 @@ namespace GitTjuvochPolis
                         Console.WriteLine("Polisen vinkar till den blivande tjuven");
                         Thread.Sleep(1000);
                     }
+                    if (person is Police)
+                    {
+                        person.Inventory.AddRange(personTwo.Inventory);
+                        personTwo.Inventory.Clear();
+                    }
+                    else if (personTwo is Police)
+                    {
+                        personTwo.Inventory.AddRange(person.Inventory);
+                        person.Inventory.Clear();
+                    }
 
                 }
             }
-        }
-
+        }       
         public void SendToPrison(List<Person> p)
         {
             Prison prison = new Prison();

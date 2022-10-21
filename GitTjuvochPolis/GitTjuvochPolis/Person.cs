@@ -10,6 +10,8 @@ namespace GitTjuvochPolis
     internal class Person
     {
         public bool isArrested = false;
+
+        public bool isThief = false;
         public int SetX { get; set; }
 
         public int SetY { get; set; }
@@ -98,9 +100,13 @@ namespace GitTjuvochPolis
             {
                 if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
                 {
+                    if (person is Thief || personTwo is Thief)
+                    {
+                        isThief = true;
+                    }
                     Console.SetCursorPosition(0, 26);
                     Console.WriteLine("Tjuv rånar medborgare!");
-                    Thread.Sleep(100);
+                    Thread.Sleep(800);
                 }
             }
             if (person is Police && personTwo is Thief || person is Thief && personTwo is Police)
@@ -108,13 +114,20 @@ namespace GitTjuvochPolis
                 if (person.SetX == personTwo.SetX && person.SetY == personTwo.SetY)
                 {
                     Console.SetCursorPosition(0, 26);
-                    Console.WriteLine("Polis fångar tjuv!");
-                    if (person is Thief)
+                    
+                    
+                    if (person is Thief && isThief==true|| personTwo is Thief && isThief==true)
                     {
+                        Console.WriteLine("Polis fångar tjuv!");
                         person.isArrested = true;
+                        Thread.Sleep(2000);
                     }
                     //((Thief)person).isArrested = true;
-                    Thread.Sleep(2000);
+                    if(person is Thief &&isThief==false ||personTwo is Thief && isThief==false)
+                    {
+                        Console.WriteLine("Polisen vinkar till den blivande tjuven");
+                        Thread.Sleep(1000);
+                    }
 
                 }
             }

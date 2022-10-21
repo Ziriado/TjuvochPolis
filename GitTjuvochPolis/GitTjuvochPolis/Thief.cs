@@ -13,6 +13,9 @@ namespace GitTjuvochPolis
         {
             IsArrested = false;
             Symbol = 'T';
+            isThief = false;
+           
+            }
         }
     }
-}
+

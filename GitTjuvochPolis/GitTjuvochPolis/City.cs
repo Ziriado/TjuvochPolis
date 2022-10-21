@@ -13,6 +13,9 @@ namespace GitTjuvochPolis
         public void AddPerson(Person person)
         {
             people.Add(person);
+            if (person.isArrested == true){
+                people.Remove(person);
+            }
         }
         public void DrawCity()
         {

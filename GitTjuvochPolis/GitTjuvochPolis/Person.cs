@@ -126,12 +126,12 @@ namespace GitTjuvochPolis
                     Console.SetCursorPosition(0, 26);
                     Console.WriteLine("Tjuv rånar medborgare!");                    
                     Thread.Sleep(800);
-                    if (person is Citizen && Inventory.Count > 0)
+                    if (person is Citizen && Inventory.Count >= 0)
                     {       
                         personTwo.Inventory.Add(person.Inventory[randomItem]);
                         person.Inventory.RemoveAt(randomItem);
                     }
-                    else if (personTwo is Citizen && Inventory.Count > 0)
+                    else if (personTwo is Citizen && Inventory.Count >= 0)
                     {
                         person.Inventory.Add(personTwo.Inventory[randomItem]);
                         personTwo.Inventory.RemoveAt(randomItem);
